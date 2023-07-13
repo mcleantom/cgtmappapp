@@ -1,25 +1,69 @@
 import logo from './logo.svg';
 import './App.css';
+import { Grid, GridItem } from '@chakra-ui/react';
+import 'leaflet/dist/leaflet.css';
+import {
+  MapContainer,
+  TileLayer,
+  useMap,
+  Marker
+} from 'react-leaflet';
+import Header from './components/sections/Header';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Grid
+      templateAreas={`"header header"
+                      "nav main"
+                      "footer footer"`}
+      gridTemplateRows={'50px 1fr 100px'}
+      gridTemplateColumns={'400px 1fr'}
+      h='100vh'
+      color='blackAlpha.700'
+      fontWeight='bold'
+      w='100%'
+    >
+      <GridItem pl='2' bg='orange.300' area={'header'}>
+        <Header/>
+      </GridItem>
+      <GridItem pl='2' bg='pink.300' area={'nav'}>
+        Nav
+      </GridItem>
+      <GridItem pl='2' bg='green.300' area={'main'} display={'block'}>
+        <MapContainer
+          center={[51.505, -0.09]}
+          zoom={13}
+          style={{ height: '100%', width: '100%' }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <TileLayer
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+          />
+          <MarkerClusterGroup>
+            <Marker position={[51.50, -0.09]} />
+            <Marker position={[51.51, -0.09]} />
+            <Marker position={[51.52, -0.09]} />
+          </MarkerClusterGroup>
+        </MapContainer>
+      </GridItem>
+      <GridItem pl='2' bg='blue.300' area={'footer'}>
+        Footer
+      </GridItem>
+    </Grid>
   );
+
 }
 
 export default App;
