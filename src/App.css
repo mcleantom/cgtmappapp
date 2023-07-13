@@ -32,7 +32,22 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.bottom-arrow:after {
+  border-right: solid 10px transparent;
+  border-left: solid 10px transparent;
+  border-top: solid 10px blue;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: -1;
+  content: '';
+  top: 100%;
+  left: 50%;
+  height: 0;
+  width: 0;
 }
