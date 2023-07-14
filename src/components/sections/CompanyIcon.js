@@ -11,8 +11,8 @@ import {
     Text,
     Heading
 } from '@chakra-ui/react';
-
-export default function CompanyIcon({position, name, logo}) {
+import Markdown from 'react-markdown'
+export default function CompanyIcon({position, name, logo, description, website}) {
     const iconMarkup = renderToStaticMarkup(
         <div class="bottom-arrow" style={{background: 'blue', width: '50px', height: '50px', display: 'block', position:'relative', padding: '10px', borderRadius: '10px'}}>
             <div style={{backgroundColor: 'white', position: 'absolute', top: '10px', left:'10px', bottom:'10px', right: '10px'}}>
@@ -36,6 +36,8 @@ export default function CompanyIcon({position, name, logo}) {
         >
         <Popup>
             <h2>{name}</h2>
+            <p dangerouslySetInnerHTML={{__html: description}} />
+            <a href={website}>website</a>
         </Popup>
         </Marker>
     );
