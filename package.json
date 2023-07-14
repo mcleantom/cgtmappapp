@@ -11,13 +11,19 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "csv": "^6.3.1",
+    "csv-parse": "^5.4.0",
     "framer-motion": "^10.12.20",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
+    "markdown-it": "^13.0.1",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-cluster": "^2.1.0",
+    "react-markdown": "^8.0.7",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -44,5 +50,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
