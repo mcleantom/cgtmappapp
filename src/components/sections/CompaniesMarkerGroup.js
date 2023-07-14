@@ -15,6 +15,7 @@ export default function CompaniesMarkerGroup() {
     return (
         <MarkerClusterGroup>
             {companyData.map((company, indexOf) => {
+                
                 return (
                     <CompanyIcon position={[company.lat, company.lon]} name={company.name} logo={company.logo} description={company.description} website={company.website}/>
                 );
