@@ -14,17 +14,8 @@ export default function CompaniesMarkerGroup({ onClick }) {
 
   return (
     <MarkerClusterGroup>
-      {companyData.map((company, indexOf) => {
-        return (
-          <CompanyIcon
-            position={[company.lat, company.lon]}
-            name={company.name}
-            logo={company.logo}
-            description={company.description}
-            website={company.website}
-            eventHanlers={{ click: (e) => onClick(e) }}
-          />
-        );
+      {companyData.map((company) => {
+        return <CompanyIcon company={company} onClick={onClick} />;
       })}
     </MarkerClusterGroup>
   );
