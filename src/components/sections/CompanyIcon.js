@@ -9,22 +9,17 @@ import {
     Box,
     AspectRatio,
     Text,
+    Heading
 } from '@chakra-ui/react';
 
 export default function CompanyIcon({position, name, logo}) {
     const iconMarkup = renderToStaticMarkup(
-        <Box backgroundColor={'black'} borderRadius={'10px'} padding={'10px'} height={'50px'} width={'50px'} zIndex={'sticky'}>
-            <AspectRatio ratio={1} maxWidth={'50px'} maxHeight={'50px'} backgroundColor={'white'}>
-                <Text>Hello</Text>
-            </AspectRatio>
-        </Box>
+        <div class="bottom-arrow" style={{background: 'blue', width: '50px', height: '50px', display: 'block', position:'relative', padding: '10px', borderRadius: '10px'}}>
+            <div style={{backgroundColor: 'white', position: 'absolute', top: '10px', left:'10px', bottom:'10px', right: '10px'}}>
+                <img style={{ height: "100%", width: "100%"}} src={logo}/>
+            </div>
+        </div>
     );
-
-    // const iconMarkup = renderToStaticMarkup(
-    //     <div class="bottom-arrow" style={{background: 'blue', width: '50px', height: '50px', padding: '10px', borderRadius: '10px'}}>
-    //         <img maxWidth="10px" height="10px" src={logo}/>
-    //     </div>
-    // );
 
     const customMarkerIcon = divIcon({
         className: '',
@@ -36,8 +31,8 @@ export default function CompanyIcon({position, name, logo}) {
     
     return (
         <Marker
-        position={position}
-        icon={customMarkerIcon}
+            position={position}
+            icon={customMarkerIcon}
         >
         <Popup>
             <h2>{name}</h2>

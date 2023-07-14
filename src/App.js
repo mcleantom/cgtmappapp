@@ -37,7 +37,7 @@ function App() {
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
-            url='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
           />
           <CompaniesMarkerGroup/>
         </MapContainer>
