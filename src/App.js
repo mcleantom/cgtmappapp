@@ -26,8 +26,8 @@ function App() {
         <Header />
       </GridItem>
       <GridItem p="2" area={"nav"}>
-        <Heading>The UK Map of Gene Cell Therepy</Heading>
-        <Text fontSize="sm">The A-Z of gene cell therepy in the UK.</Text>
+        <Heading>The UK Map of Cell & Gene Therapies</Heading>
+        <Text fontSize="sm">The A-Z of Cell and Gene therapies in the UK.</Text>
       </GridItem>
       <GridItem area={"main"} display={"block"} position="relative">
         <MapContainer
