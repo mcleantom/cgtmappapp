@@ -5,7 +5,9 @@ import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import Header from "./components/sections/Header";
 import CompaniesMarkerGroup from "./components/sections/CompaniesMarkerGroup";
 import SelectedCompany from "./components/sections/SelectedCompany";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getCompanyData from "./components/sections/CompaniesParser";
+import CompanyTree from "./components/sections/CompanyTree";
 
 function ClickHandler(events) {
   const map = useMapEvents({
@@ -21,6 +23,14 @@ function App() {
     [49.505, -12.09],
     [60.505, 2.09],
   ];
+
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(() => {
+    getCompanyData().then((data) => {
+      setCompanies(data);
+    });
+  }, []);
 
   const [selectedCompany, setSelectedCompany] = useState(null);
 
@@ -43,7 +53,10 @@ function App() {
       </GridItem>
       <GridItem p="2" area={"nav"}>
         <Heading>The UK Map of Cell & Gene Therapies</Heading>
-        <Text fontSize="sm">The A-Z of Cell and Gene therapies in the UK.</Text>
+        <Text fontSize="sm" pb={2}>
+          The A-Z of Cell and Gene therapies in the UK.
+        </Text>
+        <CompanyTree tree={{ Hiring: companies }} />
       </GridItem>
       <GridItem area={"main"} display={"block"} position="relative">
         <MapContainer
@@ -58,6 +71,7 @@ function App() {
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <CompaniesMarkerGroup
+            companies={companies}
             onClick={(e, clickedCompany) =>
               handleSelectedCompany(clickedCompany)
             }
