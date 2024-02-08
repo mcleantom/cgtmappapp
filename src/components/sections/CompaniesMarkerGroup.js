@@ -3,18 +3,10 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import CompanyIcon from "./CompanyIcon";
 import { useState, useEffect } from "react";
 
-export default function CompaniesMarkerGroup({ onClick }) {
-  const [companyData, setCompanyData] = useState([]);
-
-  useEffect(() => {
-    getCompanyData().then((data) => {
-      setCompanyData(data);
-    });
-  }, []);
-
+export default function CompaniesMarkerGroup({ companies, onClick }) {
   return (
     <MarkerClusterGroup>
-      {companyData.map((company) => {
+      {companies.map((company) => {
         return <CompanyIcon company={company} onClick={onClick} />;
       })}
     </MarkerClusterGroup>
