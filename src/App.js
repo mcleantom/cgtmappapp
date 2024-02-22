@@ -43,15 +43,16 @@ function App() {
       templateAreas={`"header header"
                       "nav main"
                       "footer footer"`}
-      gridTemplateRows={"50px 1fr 100px"}
+      gridTemplateRows={"0px 1fr"}
       gridTemplateColumns={"300px 1fr"}
       h="100vh"
-      w="100%"
+      w="100vw"
+      overflow={"hidden"}
     >
-      <GridItem p="2" area={"header"}>
+      {/* <GridItem p="2" area={"header"}>
         <Header />
-      </GridItem>
-      <GridItem p="2" area={"nav"}>
+      </GridItem> */}
+      <GridItem p="2" area={"nav"} overflowY="auto">
         <Heading>The UK Map of Cell & Gene Therapies</Heading>
         <Text fontSize="sm" pb={2}>
           The A-Z of Cell and Gene therapies in the UK.
@@ -93,9 +94,9 @@ function App() {
           {selectedCompany && <SelectedCompany company={selectedCompany} />}
         </Box>
       </GridItem>
-      <GridItem pl="2" area={"footer"}>
+      {/* <GridItem pl="2" area={"footer"}>
         Footer
-      </GridItem>
+      </GridItem> */}
     </Grid>
   );
 }

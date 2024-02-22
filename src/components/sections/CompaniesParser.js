@@ -1,7 +1,14 @@
 import axios from "axios";
 
 export default async function getCompanyData() {
-  const response = await axios.get("https://cgtapi.mcleanmarine.com/company");
+  const skip = 0;
+  const limit = 1000;
+  const response = await axios.get("https://cgtapi.mcleanmarine.com/company", {
+    params: {
+      skip,
+      limit,
+    },
+  });
   return response.data.map((company) => {
     return {
       name: company.name,
