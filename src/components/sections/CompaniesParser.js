@@ -17,6 +17,7 @@ export default async function getCompanyData() {
       logo: company.logo,
       description: company.description,
       website: company.website,
+      category: company.category,
     };
   });
 }

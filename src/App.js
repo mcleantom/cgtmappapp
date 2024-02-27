@@ -25,10 +25,22 @@ function App() {
   ];
 
   const [companies, setCompanies] = useState([]);
+  const [companyCategories, setCompanyCategories] = useState({});
 
   useEffect(() => {
     getCompanyData().then((data) => {
       setCompanies(data);
+
+      // create a map of companies by category
+      const companyCategories = {};
+      data.forEach((company) => {
+        if (!companyCategories[company.category]) {
+          companyCategories[company.category] = [];
+        }
+        companyCategories[company.category].push(company);
+      });
+      setCompanyCategories(companyCategories);
+
     });
   }, []);
 
@@ -48,6 +60,7 @@ function App() {
       h="100vh"
       w="100vw"
       overflow={"hidden"}
+      padding={'30px'}
     >
       {/* <GridItem p="2" area={"header"}>
         <Header />
@@ -57,18 +70,23 @@ function App() {
         <Text fontSize="sm" pb={2}>
           The A-Z of Cell and Gene therapies in the UK.
         </Text>
-        <CompanyTree tree={{ Hiring: companies }} />
+        <CompanyTree tree={companyCategories}/>
       </GridItem>
-      <GridItem area={"main"} display={"block"} position="relative">
+      <GridItem area={"main"} display={"block"} position="relative" borderRadius={"30px"} borderColor={"black"}>
         <MapContainer
           zoom={5}
           maxZoom={18}
-          style={{ height: "100%", width: "100%" }}
+          style={{
+            height: "100%",
+            width: "100%",
+            borderRadius: "0 30px 30px 0",
+          }}
           zoomControl={false}
           bounds={outerBounds}
           onClick={(e) => {
             setSelectedCompany(null);
           }}
+          attributionControl={false}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <CompaniesMarkerGroup
