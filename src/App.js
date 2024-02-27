@@ -39,6 +39,14 @@ function App() {
         }
         companyCategories[company.category].push(company);
       });
+
+      // sort the companies in each category by name
+      Object.keys(companyCategories).forEach((category) => {
+        companyCategories[category].sort((a, b) => {
+          return a.name.localeCompare(b.name);
+        });
+      });
+      
       setCompanyCategories(companyCategories);
 
     });

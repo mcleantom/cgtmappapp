@@ -28,10 +28,10 @@ function TreeIcon() {
           content: "",
           display: "block",
           width: "12px",
-          height: "32px",
-          top: "-16px",
-          left: "16px",
-          position: "absolute",
+          height: "25px",
+          top: "-12px",
+          left: "-5px",
+          position: "relative",
           borderBottom: "1px solid rgb(187, 187, 187)",
           borderLeft: "1px solid rgb(187, 187, 187)",
           zIndex: "99",
@@ -44,8 +44,22 @@ function TreeIcon() {
 function TreeItem({ company }) {
   return (
     <>
+    <div style={{display: "flex", alignItems: "left"}}>
       <TreeIcon />
-      <Text fontSize={"sm"} before>{company.name}</Text>
+      <Text fontSize={"sm"} noOfLines={1}>{company.name}</Text>
+    </div>
+    </>
+  );
+}
+
+function TreeMain({companies}) {
+  return (
+    <>
+    <div style={{overflow: "hidden", paddingLeft: '10px', paddingTop:'5px'}}>
+      {companies.map((company) => {
+        return <TreeItem company={company} />;
+      })}
+    </div>
     </>
   );
 }
@@ -55,9 +69,7 @@ function TreeSection({ title, companies }) {
   return (
     <>
       <TreeHeader category={{ name: title }} />
-      {companies.map((company) => {
-        return <TreeItem company={company} />;
-      })}
+      <TreeMain companies={companies} />
     </>
   );
 }
@@ -69,7 +81,6 @@ export default function CompanyTree({ tree }) {
         return (
         <>
           <TreeSection title={key} companies={tree[key]} />
-          <br/>
         </>
         )
       })}
