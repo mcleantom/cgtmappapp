@@ -41,10 +41,10 @@ function TreeIcon() {
 }
 
 
-function TreeItem({ company }) {
+function TreeItem({ company, selectCompany }) {
   return (
     <>
-    <div style={{display: "flex", alignItems: "left"}}>
+    <div style={{display: "flex", alignItems: "left", cursor: "pointer"}} onClick={() => selectCompany(company)}>
       <TreeIcon />
       <Text fontSize={"sm"} noOfLines={1}>{company.name}</Text>
     </div>
@@ -52,12 +52,12 @@ function TreeItem({ company }) {
   );
 }
 
-function TreeMain({companies}) {
+function TreeMain({companies, selectCompany}) {
   return (
     <>
     <div style={{overflow: "hidden", paddingLeft: '10px', paddingTop:'5px'}}>
       {companies.map((company) => {
-        return <TreeItem company={company} />;
+        return <TreeItem company={company} selectCompany={selectCompany} />;
       })}
     </div>
     </>
@@ -65,22 +65,22 @@ function TreeMain({companies}) {
 }
 
 
-function TreeSection({ title, companies }) {
+function TreeSection({ title, companies, selectCompany }) {
   return (
     <>
       <TreeHeader category={{ name: title }} />
-      <TreeMain companies={companies} />
+      <TreeMain companies={companies} selectCompany={selectCompany} />
     </>
   );
 }
 
-export default function CompanyTree({ tree }) {
+export default function CompanyTree({ tree, selectCompany }) {
   return (
     <>
       {Object.entries(tree).map(([key, value]) => {
         return (
         <>
-          <TreeSection title={key} companies={tree[key]} />
+          <TreeSection title={key} companies={tree[key]} selectCompany={selectCompany} />
         </>
         )
       })}

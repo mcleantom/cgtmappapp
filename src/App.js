@@ -26,6 +26,7 @@ function App() {
 
   const [companies, setCompanies] = useState([]);
   const [companyCategories, setCompanyCategories] = useState({});
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
     getCompanyData().then((data) => {
@@ -52,10 +53,22 @@ function App() {
     });
   }, []);
 
+
   const [selectedCompany, setSelectedCompany] = useState(null);
+
+  const zoomToLatLong = (lat, lon) => {
+    map.setView(
+      [lat, lon],
+      15,
+      {
+        animate: true,
+      }
+    );
+  };
 
   const handleSelectedCompany = (company) => {
     setSelectedCompany(company);
+    zoomToLatLong(company.lat, company.lon);
   };
 
   return (
@@ -78,7 +91,7 @@ function App() {
         <Text fontSize="sm" pb={2}>
           The A-Z of Cell and Gene therapies in the UK.
         </Text>
-        <CompanyTree tree={companyCategories}/>
+        <CompanyTree tree={companyCategories} selectCompany={handleSelectedCompany}/>
       </GridItem>
       <GridItem area={"main"} display={"block"} position="relative" borderRadius={"30px"} borderColor={"black"}>
         <MapContainer
@@ -95,6 +108,7 @@ function App() {
             setSelectedCompany(null);
           }}
           attributionControl={false}
+          ref={setMap}
         >
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           <CompaniesMarkerGroup
