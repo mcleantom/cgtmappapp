@@ -87,9 +87,9 @@ function App() {
         <Header />
       </GridItem> */}
       <GridItem p="2" area={"nav"} overflowY="auto">
-        <Heading>The UK Map of Cell & Gene Therapies</Heading>
+        <Heading>The UK Landscape of Cell & Gene Therapies</Heading>
         <Text fontSize="sm" pb={2}>
-          A central list of cell and gene therapy associated companies in the UK.
+          A centralised list of cell and gene therapy companies and institutions in the UK.
         </Text>
         <CompanyTree tree={companyCategories} selectCompany={handleSelectedCompany}/>
       </GridItem>
