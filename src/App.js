@@ -68,7 +68,12 @@ function App() {
 
   const handleSelectedCompany = (company) => {
     setSelectedCompany(company);
-    zoomToLatLong(company.lat, company.lon);
+    const newCenter = [company.lat, company.lon];
+
+    // Update the centre prop of MapContained instead of using setView
+    map.setView(newCenter, map.getZoom(), {
+      animate: true,
+    });
   };
 
   return (
