@@ -56,7 +56,7 @@ function TreeMain({companies, selectCompany}) {
   return (
     <>
     <div style={{overflow: "hidden", paddingLeft: '10px', paddingTop:'5px'}}>
-      {companies.map((company) => {
+      {companies && companies.map && companies.map((company) => {
         return <TreeItem company={company} selectCompany={selectCompany} />;
       })}
     </div>

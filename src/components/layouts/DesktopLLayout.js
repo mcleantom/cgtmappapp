@@ -1,19 +1,7 @@
 import React from "react";
 import { Grid, GridItem, Heading, Text, Box } from "@chakra-ui/react";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import CompanyTree from "../sections/CompanyTree";
-import CompaniesMarkerGroup from "../sections/CompaniesMarkerGroup";
-import SelectedCompany from "../sections/SelectedCompany";
-
-
-function ClickHandler(events) {
-    const map = useMapEvents({
-      click: (e) => {
-        events.onClick(e);
-      },
-    });
-    return null;
-}
+import Map from "../Map";
 
 
 export default function DesktopLayout(companyCategories, handleSelectedCompany, outerBounds, setSelectedCompany, setMap, companies, selectedCompany) {
@@ -39,41 +27,7 @@ export default function DesktopLayout(companyCategories, handleSelectedCompany, 
         <CompanyTree tree={companyCategories} selectCompany={handleSelectedCompany} />
       </GridItem>
       <GridItem area={"main"} display={"block"} position="relative" borderRadius={"30px"} borderColor={"black"}>
-        <MapContainer
-          zoom={5}
-          maxZoom={18}
-          style={{
-            height: "100%",
-            width: "100%",
-            borderRadius: "0 30px 30px 0",
-          }}
-          zoomControl={false}
-          bounds={outerBounds}
-          onClick={(e) => {
-            setSelectedCompany(null);
-          } }
-          attributionControl={false}
-          ref={setMap}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <CompaniesMarkerGroup
-            companies={companies}
-            onClick={(e, clickedCompany) => handleSelectedCompany(clickedCompany)} />
-          <ClickHandler
-            onClick={(e) => {
-              setSelectedCompany(null);
-            } } />
-        </MapContainer>
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          zIndex={1000}
-          margin={"1rem"}
-          borderRadius={"md"}
-        >
-          {selectedCompany && <SelectedCompany company={selectedCompany} />}
-        </Box>
+        {Map(outerBounds, setSelectedCompany, setMap, companies, handleSelectedCompany, selectedCompany)}
       </GridItem>
     </Grid>;
   }

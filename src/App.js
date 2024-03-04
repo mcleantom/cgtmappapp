@@ -10,14 +10,6 @@ import getCompanyData from "./components/sections/CompaniesParser";
 import CompanyTree from "./components/sections/CompanyTree";
 import DesktopLayout from "./components/layouts/DesktopLLayout";
 
-function ClickHandler(events) {
-  const map = useMapEvents({
-    click: (e) => {
-      events.onClick(e);
-    },
-  });
-  return null;
-}
 
 function App() {
   const outerBounds = [
