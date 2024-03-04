@@ -44,7 +44,7 @@ function TreeIcon() {
 function TreeItem({ company, selectCompany }) {
   return (
     <>
-    <div style={{display: "flex", alignItems: "left", cursor: "pointer"}} onClick={() => selectCompany(company)}>
+    <div style={{display: "flex", alignItems: "left", cursor: "pointer"}} onClick={() => selectCompany(company, 15)}>
       <TreeIcon />
       <Text fontSize={"sm"} noOfLines={1}>{company.name}</Text>
     </div>
