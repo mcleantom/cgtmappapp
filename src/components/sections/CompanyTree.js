@@ -46,7 +46,9 @@ function TreeItem({ company, selectCompany }) {
     <>
     <div style={{display: "flex", alignItems: "left", cursor: "pointer"}} onClick={() => selectCompany(company, 15)}>
       <TreeIcon />
-      <Text fontSize={"sm"} noOfLines={1}>{company.name}</Text>
+      <Text fontSize="sm" noOfLines={1} flex={1}>
+        {company.name.trim()}
+      </Text>
     </div>
     </>
   );
