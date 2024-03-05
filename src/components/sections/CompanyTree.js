@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Text } from "@chakra-ui/react";
+
 function TreeHeader({ category }) {
   return (
     <>
@@ -46,8 +47,8 @@ function TreeItem({ company, selectCompany }) {
     <>
     <div style={{display: "flex", alignItems: "left", cursor: "pointer"}} onClick={() => selectCompany(company, 15)}>
       <TreeIcon />
-      <Text fontSize="sm" noOfLines={1} flex={1}>
-        {company.name.trim()}
+      <Text fontSize="sm" noOfLines={1} flex={1} align={"left"}>
+        {company.name}
       </Text>
     </div>
     </>
@@ -57,15 +58,14 @@ function TreeItem({ company, selectCompany }) {
 function TreeMain({companies, selectCompany}) {
   return (
     <>
-    <div style={{overflow: "hidden", paddingLeft: '10px', paddingTop:'5px'}}>
-      {companies.map((company) => {
+    <div style={{overflow: "", paddingLeft: '10px', paddingTop:'5px'}}>
+      {companies && companies.map && companies.map((company) => {
         return <TreeItem company={company} selectCompany={selectCompany} />;
       })}
     </div>
     </>
   );
 }
-
 
 function TreeSection({ title, companies, selectCompany }) {
   return (

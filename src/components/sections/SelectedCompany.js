@@ -16,7 +16,7 @@ export default function SelectedCompany({ company }) {
         objectFit="cover"
         height="125px"
         src={company.logo}
-        alt="Caffe Latte"
+        alt={company.name}
       />
       <CardBody paddingBottom={"0px"}>
         <Heading size="sm">{company.name}</Heading>
@@ -25,8 +25,8 @@ export default function SelectedCompany({ company }) {
         </Text>
       </CardBody>
       <CardFooter padding={4}>
-        <Link href={company.website}>
-          <Button variant="solid" colorScheme="blue">
+        <Link href={company.website} width="100%">
+          <Button variant="solid" colorScheme="black-btn" width="100%">
             Website
           </Button>
         </Link>

@@ -14,7 +14,21 @@ const theme = extendTheme({
         800: "#1a1a1a",
         900: "#1a1a1a"
       },
+    },
+    components: {
+      Drawer: {
+        parts: ['dialog', 'header', 'body'],
+        variants: {
+          primary: {
+          secondary: {
+            dialog: {
+              maxW: "1000px",
+            }
+          }
+        }
+      }
     }
+  }
   });
 
 export default theme;

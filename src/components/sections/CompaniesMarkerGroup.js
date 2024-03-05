@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export default function CompaniesMarkerGroup({ companies, onClick }) {
   return (
     <MarkerClusterGroup>
-      {companies.map((company) => {
+      {companies && companies.map && companies.map((company) => {
         return <CompanyIcon company={company} onClick={onClick} />;
       })}
     </MarkerClusterGroup>

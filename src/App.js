@@ -1,22 +1,10 @@
 import "./App.css";
-import { Grid, GridItem, Heading, Text, Box } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import Header from "./components/sections/Header";
-import CompaniesMarkerGroup from "./components/sections/CompaniesMarkerGroup";
-import SelectedCompany from "./components/sections/SelectedCompany";
+import { useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import getCompanyData from "./components/sections/CompaniesParser";
-import CompanyTree from "./components/sections/CompanyTree";
-
-function ClickHandler(events) {
-  const map = useMapEvents({
-    click: (e) => {
-      events.onClick(e);
-    },
-  });
-  return null;
-}
+import DesktopLayout from "./components/layouts/DesktopLayout";
+import MobileLayout from "./components/layouts/MobileLayout";
 
 function App() {
   const outerBounds = [
@@ -27,6 +15,12 @@ function App() {
   const [companies, setCompanies] = useState([]);
   const [companyCategories, setCompanyCategories] = useState({});
   const [map, setMap] = useState(null);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [isMobile] = useMediaQuery("(max-width: 780px)");
+
 
   useEffect(() => {
     getCompanyData().then((data) => {
@@ -50,6 +44,18 @@ function App() {
       
       setCompanyCategories(companyCategories);
 
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
     });
   }, []);
 
@@ -68,82 +74,43 @@ function App() {
 
   const handleSelectedCompany = (company, zoom) => {
     setSelectedCompany(company);
-    const newCenter = [company.lat, company.lon];
-    const newZoom = zoom || map.getZoom();
-    // Update the centre prop of MapContained instead of using setView
-    map.setView(newCenter, newZoom, {
-      animate: true,
-    });
+    if (company) {
+      const newCenter = [company.lat, company.lon];
+      const newZoom = zoom || map.getZoom();
+      // Update the centre prop of MapContained instead of using setView
+      map.setView(newCenter, newZoom, {
+        animate: true,
+      });
+    }
   };
 
   return (
-    <Grid
-      templateAreas={`"header header"
-                      "nav main"
-                      "footer footer"`}
-      gridTemplateRows={"0px 1fr"}
-      gridTemplateColumns={"300px 1fr"}
-      h="100vh"
-      w="100vw"
-      overflow={"hidden"}
-      padding={'30px'}
-    >
-      {/* <GridItem p="2" area={"header"}>
-        <Header />
-      </GridItem> */}
-      <GridItem p="2" area={"nav"} overflowY="auto">
-        <Heading>The UK Landscape of Cell & Gene Therapies</Heading>
-        <Text fontSize="sm" pb={2}>
-          A centralised list of cell and gene therapy companies and institutions in the UK.
-        </Text>
-        <CompanyTree tree={companyCategories} selectCompany={handleSelectedCompany}/>
-      </GridItem>
-      <GridItem area={"main"} display={"block"} position="relative" borderRadius={"30px"} borderColor={"black"}>
-        <MapContainer
-          zoom={5}
-          maxZoom={18}
-          style={{
-            height: "100%",
-            width: "100%",
-            borderRadius: "0 30px 30px 0",
-          }}
-          zoomControl={false}
-          bounds={outerBounds}
-          onClick={(e) => {
-            setSelectedCompany(null);
-          }}
-          attributionControl={false}
-          ref={setMap}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          <CompaniesMarkerGroup
-            companies={companies}
-            onClick={(e, clickedCompany) =>
-              handleSelectedCompany(clickedCompany)
-            }
-          />
-          <ClickHandler
-            onClick={(e) => {
-              setSelectedCompany(null);
-            }}
-          />
-        </MapContainer>
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          zIndex={1000}
-          margin={"1rem"}
-          borderRadius={"md"}
-        >
-          {selectedCompany && <SelectedCompany company={selectedCompany} />}
-        </Box>
-      </GridItem>
-      {/* <GridItem pl="2" area={"footer"}>
-        Footer
-      </GridItem> */}
-    </Grid>
-  );
+    <div className="App">
+      {isMobile ? (
+        <MobileLayout
+          companies={companies}
+          companyCategories={companyCategories}
+          selectedCompany={selectedCompany}
+          setSelectedCompany={handleSelectedCompany}
+          zoomToLatLong={zoomToLatLong}
+          outerBounds={outerBounds}
+          setMap={setMap}
+          handleSelectedCompany={handleSelectedCompany}
+        />
+      ) : (
+        <DesktopLayout
+          companies={companies}
+          companyCategories={companyCategories}
+          selectedCompany={selectedCompany}
+          setSelectedCompany={handleSelectedCompany}
+          zoomToLatLong={zoomToLatLong}
+          outerBounds={outerBounds}
+          setMap={setMap}
+          handleSelectedCompany={handleSelectedCompany}
+        />
+      )}
+    </div>
+  )
 }
 
 export default App;
