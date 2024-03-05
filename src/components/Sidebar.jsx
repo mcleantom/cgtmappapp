@@ -1,5 +1,5 @@
 import React from "react";
-import { GridItem, Heading, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, IconButton } from "@chakra-ui/react";
+import { Box, Heading, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, IconButton } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import CompanyTree from "./sections/CompanyTree";
 
@@ -23,7 +23,9 @@ export default function Sidebar({ companyCategories, handleSelectedCompany }) {
                     <Text fontSize="sm" pb={2}>
                         A centralised list of cell and gene therapy companies and institutions in the UK.
                     </Text>
-                    <CompanyTree tree={companyCategories} selectCompany={newHandleSelectedCompany} />
+                    <Box overflowY="auto">
+                        <CompanyTree tree={companyCategories} selectCompany={newHandleSelectedCompany} />
+                    </Box>
                 </DrawerContent>
             </Drawer>
         </>
