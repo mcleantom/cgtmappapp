@@ -29,8 +29,8 @@ export default function SelectedCompany({ company }) {
           </Text>
         </CardBody>
         <CardFooter padding={4}>
-          <Link href={company.website}>
-            <Button variant="solid" colorScheme="blue">
+          <Link href={company.website} width="100%">
+            <Button colorScheme="black-btn" width="100%">
               Website
             </Button>
           </Link>
