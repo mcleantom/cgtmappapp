@@ -4,7 +4,7 @@ import CompanyTree from "../sections/CompanyTree";
 import Map from "../Map";
 
 
-export default function DesktopLayout(companyCategories, handleSelectedCompany, outerBounds, setSelectedCompany, setMap, companies, selectedCompany) {
+export default function DesktopLayout({companyCategories, handleSelectedCompany, outerBounds, setSelectedCompany, setMap, companies, selectedCompany}) {
     return <Grid
       templateAreas={`"header header"
                         "nav main"
@@ -15,10 +15,8 @@ export default function DesktopLayout(companyCategories, handleSelectedCompany, 
       w="100vw"
       overflow={"hidden"}
       padding={'30px'}
+      textAlign={"left"}
     >
-      {/* <GridItem p="2" area={"header"}>
-            <Header />
-          </GridItem> */}
       <GridItem p="2" area={"nav"} overflowY="auto">
         <Heading>The UK Landscape of Cell & Gene Therapies</Heading>
         <Text fontSize="sm" pb={2}>
@@ -27,7 +25,14 @@ export default function DesktopLayout(companyCategories, handleSelectedCompany, 
         <CompanyTree tree={companyCategories} selectCompany={handleSelectedCompany} />
       </GridItem>
       <GridItem area={"main"} display={"block"} position="relative" borderRadius={"30px"} borderColor={"black"}>
-        {Map(outerBounds, setSelectedCompany, setMap, companies, handleSelectedCompany, selectedCompany)}
+        <Map 
+              outerBounds={outerBounds}
+              setSelectedCompany={setSelectedCompany}
+              setMap={setMap}
+              companies={companies}
+              handleSelectedCompany={handleSelectedCompany}
+              selectedCompany={selectedCompany}
+          />
       </GridItem>
     </Grid>;
   }

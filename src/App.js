@@ -1,15 +1,10 @@
 import "./App.css";
-import { Grid, GridItem, Heading, Text, Box } from "@chakra-ui/react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
-import Header from "./components/sections/Header";
-import CompaniesMarkerGroup from "./components/sections/CompaniesMarkerGroup";
-import SelectedCompany from "./components/sections/SelectedCompany";
+import { useMediaQuery } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import getCompanyData from "./components/sections/CompaniesParser";
-import CompanyTree from "./components/sections/CompanyTree";
-import DesktopLayout from "./components/layouts/DesktopLLayout";
-
+import DesktopLayout from "./components/layouts/DesktopLayout";
+import MobileLayout from "./components/layouts/MobileLayout";
 
 function App() {
   const outerBounds = [
@@ -20,6 +15,12 @@ function App() {
   const [companies, setCompanies] = useState([]);
   const [companyCategories, setCompanyCategories] = useState({});
   const [map, setMap] = useState(null);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const [isMobile] = useMediaQuery("(max-width: 780px)");
+
 
   useEffect(() => {
     getCompanyData().then((data) => {
@@ -43,6 +44,18 @@ function App() {
       
       setCompanyCategories(companyCategories);
 
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
     });
   }, []);
 
@@ -70,8 +83,32 @@ function App() {
   };
 
   return (
-    DesktopLayout(companyCategories, handleSelectedCompany, outerBounds, setSelectedCompany, setMap, companies, selectedCompany)
-  );
+    <div className="App">
+      {isMobile ? (
+        <MobileLayout
+          companies={companies}
+          companyCategories={companyCategories}
+          selectedCompany={selectedCompany}
+          setSelectedCompany={handleSelectedCompany}
+          zoomToLatLong={zoomToLatLong}
+          outerBounds={outerBounds}
+          setMap={setMap}
+          handleSelectedCompany={handleSelectedCompany}
+        />
+      ) : (
+        <DesktopLayout
+          companies={companies}
+          companyCategories={companyCategories}
+          selectedCompany={selectedCompany}
+          setSelectedCompany={handleSelectedCompany}
+          zoomToLatLong={zoomToLatLong}
+          outerBounds={outerBounds}
+          setMap={setMap}
+          handleSelectedCompany={handleSelectedCompany}
+        />
+      )}
+    </div>
+  )
 }
 
 export default App;

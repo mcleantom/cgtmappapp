@@ -15,7 +15,7 @@ function ClickHandler(events) {
 }
 
 
-export default function Map(outerBounds, setSelectedCompany, setMap, companies, handleSelectedCompany, selectedCompany) {
+export default function Map({ outerBounds, setSelectedCompany, setMap, companies, handleSelectedCompany, selectedCompany }) {
     return (
         <>
             <Box width={"100%"} height={"100%"}>
@@ -25,7 +25,7 @@ export default function Map(outerBounds, setSelectedCompany, setMap, companies, 
                     style={{
                         height: "100%",
                         width: "100%",
-                        borderRadius: "0 30px 30px 0",
+                        borderRadius: "30px",
                     }}
                     zoomControl={false}
                     bounds={outerBounds}
