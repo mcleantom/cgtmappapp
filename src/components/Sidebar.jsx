@@ -14,7 +14,7 @@ export default function Sidebar({ companyCategories, handleSelectedCompany }) {
 
     return (
         <>
-            <IconButton onClick={onOpen} display={{ base: 'flex', md: 'none' }} aria-label="Open Menu" position={"absolute"} m={4} icon={<FaBars />} padding={0} margin={0} />
+            <IconButton onClick={onOpen} display={"contents"} aria-label="Open Menu" position={"absolute"} icon={<FaBars />} />
             <Drawer isOpen={isOpen} placement="left" onClose={onClose} position={"absolute"}>
                 <DrawerOverlay />
                 <DrawerContent padding={4}>

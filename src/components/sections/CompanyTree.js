@@ -67,7 +67,6 @@ function TreeMain({companies, selectCompany}) {
   );
 }
 
-
 function TreeSection({ title, companies, selectCompany }) {
   return (
     <>

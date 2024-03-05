@@ -10,18 +10,19 @@ export default function DesktopLayout({companyCategories, handleSelectedCompany,
       templateAreas={`"header header"
                         "nav main"
                         "footer footer"`}
-      gridTemplateRows={"50px 1fr"}
+      gridTemplateRows={"auto 1fr"}
       gridTemplateColumns={"0px 1fr"}
       h="100vh"
       w="100vw"
       overflow={"hidden"}
-      padding={'30px'}
+      padding={8}
       textAlign={"left"}
     >
-      <GridItem area={"header"}>
+      <GridItem area={"header"} display="flex" alignItems="center" justifyContent="space-between" paddingBottom={4}> {/* Header and Sidebar on the same row */}
+        <Heading size="md">The UK Landscape of Cell & Gene Therapies</Heading>
         <Sidebar
-            companyCategories={companyCategories}
-            handleSelectedCompany={handleSelectedCompany}
+          companyCategories={companyCategories}
+          handleSelectedCompany={handleSelectedCompany}
         />
       </GridItem>
       <GridItem p="2" area={"nav"} overflowY="auto">
