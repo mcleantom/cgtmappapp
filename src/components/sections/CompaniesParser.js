@@ -18,6 +18,8 @@ export default async function getCompanyData() {
       description: company.description,
       website: company.website,
       category: company.category,
+      icon: company.icon,
+      banner_image: company.banner_image
     };
   });
 }

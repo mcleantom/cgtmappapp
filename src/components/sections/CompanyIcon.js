@@ -28,7 +28,7 @@ export default function CompanyIcon({ company, onClick }) {
           right: "10px",
         }}
       >
-        <img style={{ height: "100%", width: "100%" }} src={company.logo} />
+        <img style={{ height: "100%", width: "100%" }} src={company.icon ? company.icon : company.logo} />
       </div>
     </div>
   );

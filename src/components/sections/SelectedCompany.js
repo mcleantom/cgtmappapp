@@ -15,7 +15,7 @@ export default function SelectedCompany({ company }) {
       <Image
         objectFit="cover"
         height="125px"
-        src={company.logo}
+        src={company.banner_image ? company.banner_image : company.logo}
         alt={company.name}
       />
       <CardBody paddingBottom={"0px"}>
